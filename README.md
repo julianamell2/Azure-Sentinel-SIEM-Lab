@@ -128,7 +128,7 @@ SecurityEvent
 | where EventID == 4720
 | project TimeGenerated, Computer, Account, TargetAccount, SubjectUserName
 ```
-![Event ID 4720 — Cuenta HackerPro37 creada](imagenes/03-event-4720-cuenta-hackerPro37.png)
+![Event ID 4720 — Cuenta HackerPro37 creada](imagenes/03-event-4720-cuenta-0hackerPro37.png)
 
 **Campos forenses clave:**
 - `TargetAccount`: cuenta nueva creada (el implante del atacante)
