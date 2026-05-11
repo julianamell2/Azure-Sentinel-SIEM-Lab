@@ -83,6 +83,7 @@ SecurityEvent
 | where Account has "joker"
 | project TimeGenerated, Computer, Account, IpAddress, Status
 ```
+![Event ID 4625 — Login fallido cuenta joker](imagenes/01-event-4625-login-fallido.png)
 
 **Campos relevantes:**
 - `TimeGenerated`: 07/04/2026 03:02:33.816 UTC
@@ -107,6 +108,7 @@ SecurityEvent
 | where LogonType == 10
 | project TimeGenerated, Computer, Account, IpAddress, LogonTypeName = "RDP"
 ```
+![Event ID 4624 — Sesión RDP administrador](imagenes/02-event-4624-rdp-session.png)
 
 > ⚠️ En producción: alerta para accesos RDP fuera de horario o desde IPs no autorizadas. Correlacionar con Event ID 4625 para detectar fuerza bruta exitosa seguida de acceso remoto.
 
@@ -126,6 +128,7 @@ SecurityEvent
 | where EventID == 4720
 | project TimeGenerated, Computer, Account, TargetAccount, SubjectUserName
 ```
+![Event ID 4720 — Cuenta HackerPro37 creada](imagenes/03-event-4720-cuenta-hackerPro37.png)
 
 **Campos forenses clave:**
 - `TargetAccount`: cuenta nueva creada (el implante del atacante)
@@ -141,6 +144,27 @@ SecurityEvent
 **Componente clave:** Regla Analítica Programada (KQL)
 
 **Descripción:** Implementación de detección automática sin intervención manual. Se creó una Regla Analítica Programada en Microsoft Defender conectada a Sentinel que ejecuta KQL sobre la tabla SecurityEvent y genera incidentes automáticamente.
+
+### Configuración de la regla analítica
+![Configuración — nombre, severidad Medium, MITRE Persistence](imagenes/04-regla-analitica-configuracion.png)
+
+### KQL de la regla automática
+![Query KQL — Event ID 4720 en Sentinel](imagenes/05-regla-analitica-query-kql.png)
+
+### Programación — cada 5 minutos
+![Scheduling — ejecución automática cada 5 minutos](imagenes/06-regla-analitica-scheduling.png)
+
+### Creación de incidentes activada
+![Incident settings — habilitado](imagenes/07-regla-analitica-incident-settings.png)
+
+### Regla activa en Sentinel
+![Sentinel — regla Persistencia habilitada](imagenes/08-sentinel-regla-activa.png)
+
+### Incidente generado automáticamente en Defender
+![Defender — incidente creado automáticamente](imagenes/09-defender-incidente-generado.png)
+
+### Detalle del incidente
+![Defender — detalle con descripción y categoría Persistence](imagenes/10-defender-detalle-incidente.png)
 
 **Flujo completo:**
 
